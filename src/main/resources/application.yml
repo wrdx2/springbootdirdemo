@@ -1,0 +1,31 @@
+server:
+  port: 8080
+  address: 127.0.0.1
+  tomcat:
+    uri-encoding: utf-8
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/test?characterEncoding=utf8
+    username: root
+    password: 123456
+  jpa:
+    database: MYSQL
+    show-sql: true
+    hibernate:
+      naming:
+        strategy: org.hibernate.cfg.ImprovedNamingStrategy
+      ddl-auto: update
+
+#视图层控制
+  mvc:
+    view:
+      prefix: classpath:/templates/
+      suffix: .html
+    static-path-pattern: /static/**
+#mybatis
+#实体类包
+mybatis:
+  typeAliasesPackage: com/wrdao/springboot/**/dao
+#mapper.xml文件
+  mapperLocations: classpath:com/wrdao/springboot/**/dao/*.xml
