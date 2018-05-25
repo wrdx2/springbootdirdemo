@@ -1,24 +1,23 @@
 package userTest;
 
+import com.wrdao.Application;
 import com.wrdao.springboot.user.service.UserService;
-import org.junit.Before;
+import com.wrdao.springboot.user.vo.User;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = UserService.class)
+@SpringBootTest(classes = Application.class)
+//@EnableAutoConfiguration
 public class UserServiceTest {
-    private MockMvc mvc;
+    //private MockMvc mvc;
+    @Autowired
+    private UserService userService;
 
-    @Before
+    /*@Before
     public void setUp() throws Exception {
         mvc = MockMvcBuilders.standaloneSetup(new UserService()).build();
     }
@@ -29,5 +28,11 @@ public class UserServiceTest {
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andDo(MockMvcResultHandlers.print())
                 .andReturn();
+    }*/
+
+    @Test
+    public void getHello() throws Exception {
+        User user = userService.findUserByName("123");
+        System.out.println(user.toString());
     }
 }
