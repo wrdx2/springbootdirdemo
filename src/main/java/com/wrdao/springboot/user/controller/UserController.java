@@ -3,11 +3,12 @@ package com.wrdao.springboot.user.controller;
 import com.wrdao.springboot.user.service.UserService;
 import com.wrdao.springboot.user.vo.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-@RestController
+@Controller
 @RequestMapping(value = "/user")
 public class UserController {
     @Autowired
@@ -19,6 +20,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "/show")
+    @ResponseBody
     public String show(@RequestParam(value = "name") String name) {
         User user = userService.findUserByName(name);
         if (null != user)
