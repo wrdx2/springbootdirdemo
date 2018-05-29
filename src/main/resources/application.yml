@@ -16,6 +16,9 @@ spring:
       naming:
         strategy: org.hibernate.cfg.ImprovedNamingStrategy
       ddl-auto: update
+#    properties:
+#      hibernate:
+#        dialect: org.hibernate.dialect.MySQL5Dialect
 
 #视图层控制
   mvc:

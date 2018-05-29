@@ -1,5 +1,7 @@
 package com.wrdao.springboot.user.vo;
 
+import com.wrdao.springboot.common.vo.BaseVo;
+
 import javax.persistence.*;
 
 /**
@@ -7,7 +9,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "tbl_user")
-public class User {
+public class User extends BaseVo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
