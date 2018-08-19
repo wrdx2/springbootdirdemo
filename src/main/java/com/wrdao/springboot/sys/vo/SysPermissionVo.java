@@ -1,41 +1,41 @@
-package com.wrdao.springboot.user.vo;
+package com.wrdao.springboot.sys.vo;
 
 import com.wrdao.springboot.common.vo.BaseVo;
 
-import javax.persistence.*;
-import java.util.List;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
-@Table(name = "sys_permission")
-public class SysPermission extends BaseVo {
+@Table(name = "sys_permission_bas")
+public class SysPermissionVo extends BaseVo {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;//主键.
-    private String name;//名称.
-    @Column(columnDefinition = "enum('menu','button')")
+    @Column(columnDefinition ="char(32)")
+    private String perId;//主键.
+    private String perName;//名称.
+    @Column(columnDefinition ="enum")
     private String resourceType;//资源类型，[menu|button]
     private String url;//资源路径.
     private String permission; //权限字符串,menu例子：role:*，button例子：role:create,role:update,role:delete,role:view
-    private Long parentId; //父编号
+    @Column(columnDefinition ="char(32)")
+    private String parentId; //父编号
     private String parentIds; //父编号列表
-    @ManyToMany
-    @JoinTable(name = "SysRolePermission", joinColumns = {@JoinColumn(name = "permissionId")}, inverseJoinColumns = {@JoinColumn(name = "roleId")})
-    private List<SysRole> roles;
 
-    public Integer getId() {
-        return id;
+    public String getPerId() {
+        return perId;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setPerId(String perId) {
+        this.perId = perId;
     }
 
-    public String getName() {
-        return name;
+    public String getPerName() {
+        return perName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setPerName(String perName) {
+        this.perName = perName;
     }
 
     public String getResourceType() {
@@ -62,11 +62,11 @@ public class SysPermission extends BaseVo {
         this.permission = permission;
     }
 
-    public Long getParentId() {
+    public String getParentId() {
         return parentId;
     }
 
-    public void setParentId(Long parentId) {
+    public void setParentId(String parentId) {
         this.parentId = parentId;
     }
 
@@ -77,14 +77,4 @@ public class SysPermission extends BaseVo {
     public void setParentIds(String parentIds) {
         this.parentIds = parentIds;
     }
-
-    public List<SysRole> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(List<SysRole> roles) {
-        this.roles = roles;
-    }
-
-    // 省略 get set 方法
 }

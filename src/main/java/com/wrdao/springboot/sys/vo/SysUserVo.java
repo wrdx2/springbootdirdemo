@@ -1,32 +1,31 @@
-package com.wrdao.springboot.user.vo;
+package com.wrdao.springboot.sys.vo;
 
 import com.wrdao.springboot.common.vo.BaseVo;
 
 import javax.persistence.*;
-import java.util.List;
 
+/**
+ * @author wangrd
+ */
 @Entity
-@Table(name = "user_info")
-public class UserInfo extends BaseVo {
+@Table(name = "sys_user_bas")
+public class SysUserVo extends BaseVo {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer uid;
-    @Column(unique = true)
+    @Column(columnDefinition ="char(32)")
+    private String userId;
+
     private String username;//帐号
     private String name;//名称（昵称或者真实姓名，不同系统不同定义）
     private String password; //密码;
     private String salt;//加密密码的盐
-    private byte state;//用户状态,0:创建未认证（比如没有激活，没有输入验证码等等）--等待验证的用户 , 1:正常状态,2：用户被锁定.
-    @ManyToMany(fetch = FetchType.EAGER)//立即从数据库中进行加载数据;
-    @JoinTable(name = "SysUserRole", joinColumns = {@JoinColumn(name = "uid")}, inverseJoinColumns = {@JoinColumn(name = "roleId")})
-    private List<SysRole> roleList;// 一个用户具有多个角色
 
-    public Integer getUid() {
-        return uid;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setUid(Integer uid) {
-        this.uid = uid;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public String getUsername() {
@@ -61,22 +60,6 @@ public class UserInfo extends BaseVo {
         this.salt = salt;
     }
 
-    public byte getState() {
-        return state;
-    }
-
-    public void setState(byte state) {
-        this.state = state;
-    }
-
-    public List<SysRole> getRoleList() {
-        return roleList;
-    }
-
-    public void setRoleList(List<SysRole> roleList) {
-        this.roleList = roleList;
-    }
-
     /**
      * 密码盐.
      * @return
@@ -85,4 +68,13 @@ public class UserInfo extends BaseVo {
         return this.username+this.salt;
     }
     //重新对盐重新进行了定义，用户名+salt，这样就更加不容易被破解
+
+    @Override
+    public String toString() {
+        return "SysUserVo{" +
+                "userId=" + userId +
+                ", name='" + name + '\'' +
+                ", password='" + password + '\'' +
+                '}';
+    }
 }
