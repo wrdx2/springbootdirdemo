@@ -12,7 +12,7 @@ public class SysUserRoleService {
     @Autowired
     SysUserRoleDao sysUserRoleDao;
 
-    public List<String> getRoleIdListByUserVo(SysUserVo sysUserVo) {
-        return sysUserRoleDao.getRoleIdListByUserId(sysUserVo);
+    public List<String> getRoleIdListByUserId(SysUserVo sysUserVo) {
+        return sysUserRoleDao.getRoleIdListByUserId(sysUserVo.getUserId());
     }
 }

@@ -3,6 +3,7 @@ server:
   address: 127.0.0.1
   tomcat:
     uri-encoding: utf-8
+  #context-path: /base
 spring:
   datasource:
     driver-class-name: com.mysql.jdbc.Driver

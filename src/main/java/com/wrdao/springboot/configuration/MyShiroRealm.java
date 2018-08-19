@@ -34,7 +34,7 @@ public class MyShiroRealm extends AuthorizingRealm {
         System.out.println("权限配置-->MyShiroRealm.doGetAuthorizationInfo()");
         SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
         SysUserVo sysUserVo = (SysUserVo) principals.getPrimaryPrincipal();
-        List<String> roleIdList = sysUserRoleService.getRoleIdListByUserVo(sysUserVo);
+        List<String> roleIdList = sysUserRoleService.getRoleIdListByUserId(sysUserVo);
         for (SysRoleVo role : sysRoleService.getRoleListByRoleIdList(roleIdList)) {
             authorizationInfo.addRole(role.getRole());
             List<String> permissionIdList = sysRolePermissionService.getPermissionIdListByRoleVo(role);

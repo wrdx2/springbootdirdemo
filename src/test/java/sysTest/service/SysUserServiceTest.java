@@ -1,4 +1,4 @@
-package sysTest;
+package sysTest.service;
 
 import com.wrdao.Application;
 import com.wrdao.springboot.sys.service.SysUserService;
