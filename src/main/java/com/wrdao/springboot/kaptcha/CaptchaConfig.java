@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 import java.util.Properties;
 
 @Component
-public class KaptchaConfig {
+public class CaptchaConfig {
     @Bean
     public DefaultKaptcha getDefaultKaptcha(){
         DefaultKaptcha defaultKaptcha = new DefaultKaptcha();

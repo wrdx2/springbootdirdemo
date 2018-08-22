@@ -4,10 +4,7 @@ import com.wrdao.springboot.sys.service.*;
 import com.wrdao.springboot.sys.vo.SysPermissionVo;
 import com.wrdao.springboot.sys.vo.SysRoleVo;
 import com.wrdao.springboot.sys.vo.SysUserVo;
-import org.apache.shiro.authc.AuthenticationException;
-import org.apache.shiro.authc.AuthenticationInfo;
-import org.apache.shiro.authc.AuthenticationToken;
-import org.apache.shiro.authc.SimpleAuthenticationInfo;
+import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
@@ -52,14 +49,37 @@ public class MyShiroRealm extends AuthorizingRealm {
         System.out.println("MyShiroRealm.doGetAuthenticationInfo()");
         //获取用户的输入的账号.
         String username = (String) token.getPrincipal();
+        //String password = new String((char[])token.getCredentials());
+
         System.out.println(token.getCredentials());
         //通过username从数据库中查找 User对象，如果找到，没找到.
         //实际项目中，这里可以根据实际情况做缓存，如果不做，Shiro自己也是有时间间隔机制，2分钟内不会重复执行该方法
         SysUserVo sysUserVo = sysUserService.findByUsername(username);
         System.out.println("----->>userInfo=" + sysUserVo);
         if (sysUserVo == null) {
-            return null;
+            //return null;
+            throw new UnknownAccountException("用户不存在");//没有找到账号异常
         }
+        if (sysUserVo.getAvailable() == 0) {
+            //return null;
+            throw new DisabledAccountException("账号未激活");//抛出账号锁定异常
+        }
+        if (sysUserVo.getAvailable() == 2) {
+            //return null;
+            throw new LockedAccountException("账号被锁定");//抛出账号锁定异常
+        }
+        /*try {
+            SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(
+                    sysUserVo, //用户名
+                    sysUserVo.getPassword(), //密码
+                    ByteSource.Util.bytes(sysUserVo.getCredentialsSalt()),//salt=username+salt
+                    getName()  //realm name
+            );
+            return authenticationInfo;
+        } catch (AuthenticationException e) {
+            e.printStackTrace();
+            throw new AuthenticationException(e);
+        }*/
         SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(
                 sysUserVo, //用户名
                 sysUserVo.getPassword(), //密码
@@ -67,6 +87,7 @@ public class MyShiroRealm extends AuthorizingRealm {
                 getName()  //realm name
         );
         return authenticationInfo;
+
     }
 
 }

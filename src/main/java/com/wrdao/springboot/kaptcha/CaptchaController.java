@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.awt.image.BufferedImage;
 
 @Controller
-public class KaptchaController {
+public class CaptchaController {
     @Autowired
     private Producer captchaProducer = null;
 
@@ -37,7 +37,7 @@ public class KaptchaController {
 
         // store the text in the session
         request.getSession().setAttribute(Constants.KAPTCHA_SESSION_KEY, capText);
-
+        //SecurityUtils.getSubject().getSession().setAttribute(Constants.KAPTCHA_SESSION_KEY, capText);
         // create the image with the text
         BufferedImage bi = captchaProducer.createImage(capText);
 
