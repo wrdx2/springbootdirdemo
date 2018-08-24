@@ -46,7 +46,7 @@ public class MyShiroRealm extends AuthorizingRealm {
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token)
             throws AuthenticationException {
-        System.out.println("MyShiroRealm.doGetAuthenticationInfo()");
+        //System.out.println("MyShiroRealm.doGetAuthenticationInfo()");
         //获取用户的输入的账号.
         String username = (String) token.getPrincipal();
         //String password = new String((char[])token.getCredentials());
@@ -55,7 +55,7 @@ public class MyShiroRealm extends AuthorizingRealm {
         //通过username从数据库中查找 User对象，如果找到，没找到.
         //实际项目中，这里可以根据实际情况做缓存，如果不做，Shiro自己也是有时间间隔机制，2分钟内不会重复执行该方法
         SysUserVo sysUserVo = sysUserService.findByUsername(username);
-        System.out.println("----->>userInfo=" + sysUserVo);
+        //System.out.println("----->>userInfo=" + sysUserVo);
         if (sysUserVo == null) {
             //return null;
             throw new UnknownAccountException("用户不存在");//没有找到账号异常

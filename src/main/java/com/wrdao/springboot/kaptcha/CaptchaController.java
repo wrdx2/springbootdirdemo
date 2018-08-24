@@ -16,7 +16,7 @@ import java.awt.image.BufferedImage;
 @Controller
 public class CaptchaController {
     @Autowired
-    private Producer captchaProducer = null;
+    private Producer captchaProducer;
 
     @RequestMapping("/kaptcha.jpg")
     public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception{

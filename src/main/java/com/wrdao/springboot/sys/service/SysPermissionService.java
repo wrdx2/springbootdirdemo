@@ -15,4 +15,5 @@ public class SysPermissionService {
     public List<SysPermissionVo> getPermissionListByPermissionIdList(List<String> permissionIdList) {
         return sysPermissionDao.getPermissionListByPerId(permissionIdList);
     }
+
 }
