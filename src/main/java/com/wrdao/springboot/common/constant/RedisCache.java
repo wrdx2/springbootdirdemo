@@ -1,5 +1,7 @@
 package com.wrdao.springboot.common.constant;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.ibatis.cache.Cache;
 import org.springframework.data.redis.connection.RedisConnection;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
@@ -15,6 +17,7 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
  * @author Administrator
  */
 public class RedisCache implements Cache {
+    private static Log logger = LogFactory.getLog(RedisCache.class);
     private static JedisConnectionFactory jedisConnectionFactory;
     private String id;
     private ReadWriteLock readWriteLock = new ReentrantReadWriteLock();
@@ -23,6 +26,7 @@ public class RedisCache implements Cache {
         if (id == null) {
             throw new IllegalArgumentException("Cache instances require an Id");
         }
+        logger.debug("=====>redisCache:id = " + id);
         this.id = id;
     }
 
@@ -86,7 +90,7 @@ public class RedisCache implements Cache {
                 connection.close();
             }
         }
-        return 0;
+        return result;
     }
 
     @Override
@@ -123,7 +127,7 @@ public class RedisCache implements Cache {
         return result;
     }
 
-    public static void setJedisConnectionFactory(JedisConnectionFactory jedisConnectionFactory) {
+    static void setJedisConnectionFactory(JedisConnectionFactory jedisConnectionFactory) {
         RedisCache.jedisConnectionFactory = jedisConnectionFactory;
     }
 

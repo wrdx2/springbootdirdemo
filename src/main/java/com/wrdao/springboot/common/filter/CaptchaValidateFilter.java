@@ -1,4 +1,4 @@
-package com.wrdao.springboot.kaptcha;
+package com.wrdao.springboot.common.filter;
 
 import com.google.code.kaptcha.Constants;
 import org.apache.shiro.SecurityUtils;
@@ -52,9 +52,7 @@ public class CaptchaValidateFilter extends AccessControlFilter {
             captchaCode = captchaCode.toLowerCase();
             validateCode = validateCode.toLowerCase();
 
-            if (captchaCode.equals(validateCode)) {
-                return true;
-            }
+            return captchaCode.equals(validateCode);
         }
 
         return false;
@@ -67,7 +65,7 @@ public class CaptchaValidateFilter extends AccessControlFilter {
         return true;
     }
 
-    public String getCaptchaParam() {
+    private String getCaptchaParam() {
         return captchaParam;
     }
 

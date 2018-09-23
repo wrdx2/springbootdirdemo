@@ -1,4 +1,4 @@
-package com.wrdao.springboot.kaptcha;
+package com.wrdao.springboot.common.controller;
 
 import com.google.code.kaptcha.Constants;
 import com.google.code.kaptcha.Producer;

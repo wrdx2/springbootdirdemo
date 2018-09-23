@@ -15,6 +15,7 @@ spring:
     show-sql: true
     hibernate:
       ddl-auto: validate
+    open-in-view: true
 #    properties:
 #      hibernate:
 #        dialect: org.hibernate.dialect.MySQL5Dialect
@@ -33,16 +34,25 @@ mybatis:
   mapper-locations: classpath*:**/dao/*.xml
   configuration:
     log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl
+    cache-enabled: true #全局映射器启用缓存
+    lazy-loading-enabled: false #查询时，关闭关联对象即时加载以提高性能
+    use-column-label: true #允许使用列标签代替列名
+    aggressive-lazy-loading: true #设置关联对象加载的形态，此处为按需加载字段(加载字段由SQL指定)，不会加载关联表的所有字段，以提高性能
+    use-generated-keys: false #不允许使用自定义的主键值(比如由程序生成的UUID 32位编码作为键值)，数据表的PK生成策略将被覆盖
+    local-cache-scope: session
 
 #日志
 logging:
   path: E:\idea\springbootdirdemo\log
-  #level: info
   level:
-       com.wrdao.spring.sys.dao : debug
+    root : info
+    com.wrdao.springboot.common : debug
+    com.wrdao.springboot.configuration : debug
+    com.wrdao.springboot.sys.dao : debug
   pattern:
     #console: "%d %logger %msg%n"
     file: "%d{yyyy/MM/dd-HH:mm} [%thread] %-5level %logger- %msg%n"
+    #level: debug
   file:
     max-history: 10
     max-size: 4MB

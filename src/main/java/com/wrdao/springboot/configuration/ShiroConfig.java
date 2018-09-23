@@ -1,6 +1,7 @@
 package com.wrdao.springboot.configuration;
 
-import com.wrdao.springboot.kaptcha.CaptchaValidateFilter;
+import com.wrdao.springboot.common.filter.MyFormAuthenticationFilter;
+import com.wrdao.springboot.common.filter.CaptchaValidateFilter;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;

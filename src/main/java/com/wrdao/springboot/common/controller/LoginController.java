@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpServletRequest;
 
 @Controller
-public class Login {
+public class LoginController {
 
     @Autowired
     LoginService loginService;

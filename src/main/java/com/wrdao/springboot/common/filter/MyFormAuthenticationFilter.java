@@ -1,5 +1,7 @@
-package com.wrdao.springboot.configuration;
+package com.wrdao.springboot.common.filter;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 
@@ -9,6 +11,7 @@ import java.io.IOException;
 
 public class MyFormAuthenticationFilter implements Filter {
 
+    private static Log logger = LogFactory.getLog(MyFormAuthenticationFilter.class);
     @Override
     public void destroy() {
 
@@ -19,10 +22,10 @@ public class MyFormAuthenticationFilter implements Filter {
         String url = ((HttpServletRequest) request).getRequestURI();
 
         if (subject.isAuthenticated() && subject.isPermitted(url)) {
-            System.out.println("允许访问:" + url);
+            logger.debug("允许访问:" + url);
             chain.doFilter(request, response);
         } else {
-            System.out.println("禁止访问:" + url);
+            logger.debug("禁止访问:" + url);
         }
     }
     @Override
