@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wrdao.springboot.sys.dao.SysPermissionDao">
+    <cache type="com.wrdao.springboot.common.constant.RedisCache"/>
+    <insert id="insert" parameterType="com.wrdao.springboot.sys.vo.SysPermissionVo">
+        INSERT INTO sys_permission_bas (
+            per_id,
+            parent_id,
+            per_name,
+            parent_ids,
+            permission,
+            url,
+            creator,
+            updater,
+            resource_type,
+            available,
+            createtime,
+            updatetime
+        )
+        values (
+            #{perId},
+            #{parentId},
+            #{perName},
+            #{parentIds},
+            #{permission},
+            #{url},
+            #{creator},
+            #{updater},
+            #{resourceType},
+            #{available},
+            #{createtime},
+            #{updatetime}
+        )
+    </insert>
+
+    <update id="update" parameterType="com.wrdao.springboot.sys.vo.SysPermissionVo">
+        update
+        sys_permission_bas
+        set
+        <if test="parentId != null">parent_id = #{parentId},</if>
+        <if test="perName != null">per_name = #{perName},</if>
+        <if test="parentIds != null">parent_ids = #{parentIds},</if>
+        <if test="permission != null">permission = #{permission},</if>
+        <if test="url != null">url = #{url},</if>
+        <if test="updater != null">updater = #{updater},</if>
+        <if test="resourceType != null">resource_type = #{resourceType},</if>
+        <if test="available != null">available = #{available},</if>
+        <if test="updatetime != null">updatetime = #{updatetime},</if>
+        per_id = #{perId}
+        <where>1 = 1
+            <if test="perId != null">and per_id = #{perId}</if>
+            <if test="perId == null">and 1 != 1</if>
+        </where>
+    </update>
+
+    <delete id="delete" parameterType="com.wrdao.springboot.sys.vo.SysPermissionVo">
+        delete from sys_permission_bas
+        where per_id = #{perId}
+    </delete>
+
+    <update id="validN">
+        update sys_permission_bas
+        set available = '2'
+        where per_id = #{perId}
+    </update>
+
+    <update id="validY">
+        update sys_permission_bas
+        set available = '1'
+        where per_id = #{perId}
+    </update>
+
+    <select id="list" parameterType="com.wrdao.springboot.sys.vo.SysPermissionVo"
+            resultType="com.wrdao.springboot.sys.vo.SysPermissionVo">
+        SELECT
+            per_id        AS perId,
+            parent_id     AS parentId,
+            per_name      AS perName,
+            parent_ids    AS parentIds,
+            permission    AS permission,
+            url           AS url,
+            creator       AS creator,
+            updater       AS updater,
+            resource_type AS resourceType,
+            available     AS available,
+            createtime    AS createtime,
+            updatetime    AS updatetime
+        FROM
+            sys_permission_bas
+    </select>
+
+    <select id="get" parameterType="java.lang.String" resultType="com.wrdao.springboot.sys.vo.SysPermissionVo">
+        SELECT
+        per_id AS perId,
+        parent_id AS parentId,
+        per_name AS perName,
+        parent_ids AS parentIds,
+        permission AS permission,
+        url AS url,
+        creator AS creator,
+        updater AS updater,
+        resource_type AS resourceType,
+        available AS available,
+        createtime AS createtime,
+        updatetime AS updatetime
+        FROM
+        sys_permission_bas
+        where 1 = 1
+        <if test="perId != null">and per_id = #{perId}</if>
+        <if test="perId == null">and 1 != 1</if>
+    </select>
+
+    <select id="getPermissionListByPerId" parameterType="java.lang.String"
+            resultType="com.wrdao.springboot.sys.vo.SysPermissionVo">
+        SELECT
+        per_id AS perId,
+        parent_id AS parentId,
+        per_name AS perName,
+        parent_ids AS parentIds,
+        permission AS permission,
+        url AS url,
+        creator AS creator,
+        updater AS updater,
+        resource_type AS resourceType,
+        available AS available,
+        createtime AS createtime,
+        updatetime AS updatetime
+        FROM
+        sys_permission_bas
+        where 1 = 1
+        <if test="perIds != null and perIds.size() > 0">and per_id in
+            <foreach collection="perIds" item="perId" index="i" open="(" close=")" separator=",">
+                #{perId}
+            </foreach>
+        </if>
+        <if test="perIds == null or perIds.size() == 0">and 1 != 1</if>
+    </select>
+</mapper>

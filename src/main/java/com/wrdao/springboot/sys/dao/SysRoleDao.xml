@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wrdao.springboot.sys.dao.SysRoleDao">
+    <cache type="com.wrdao.springboot.common.constant.RedisCache"/>
+
+    <select id="getRoleListByRoleId" parameterType="java.lang.String"
+            resultType="com.wrdao.springboot.sys.vo.SysRoleVo">
+        SELECT
+        role_id AS roleId,
+        description AS description,
+        role AS role,
+        creator AS creator,
+        updater AS updater,
+        available AS available,
+        createtime AS createtime,
+        updatetime AS updatetime
+        FROM
+        sys_role_bas
+        where 1 = 1
+        <if test="roleIds != null and roleIds.size() > 0">and role_id in
+            <foreach collection="roleIds" item="roleId" index="i" open="(" close=")" separator=",">
+                #{roleId}
+            </foreach>
+        </if>
+        <if test="roleIds == null or roleIds.size() == 0">and 1 != 1</if>
+    </select>
+</mapper>

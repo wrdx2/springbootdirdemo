@@ -14,8 +14,6 @@ spring:
     database: MYSQL
     show-sql: true
     hibernate:
-      naming:
-        strategy: org.hibernate.cfg.ImprovedNamingStrategy
       ddl-auto: validate
 #    properties:
 #      hibernate:
@@ -30,13 +28,21 @@ spring:
 #mybatis
 #实体类包
 mybatis:
-  typeAliasesPackage: com/wrdao/springboot/**/dao
+  typeAliasesPackage: com/wrdao/springboot/**/vo
 #mapper.xml文件
-  mapperLocations: classpath:com/wrdao/springboot/**/dao/*.xml
+  mapper-locations: classpath*:**/dao/*.xml
   configuration:
-    log-impl: org.apache.ibatis.logging.log4j.Log4jImpl
+    log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl
 
 #日志
 logging:
   path: E:\idea\springbootdirdemo\log
-  level: info
+  #level: info
+  level:
+       com.wrdao.spring.sys.dao : debug
+  pattern:
+    #console: "%d %logger %msg%n"
+    file: "%d{yyyy/MM/dd-HH:mm} [%thread] %-5level %logger- %msg%n"
+  file:
+    max-history: 10
+    max-size: 4MB

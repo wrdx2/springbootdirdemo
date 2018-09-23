@@ -17,10 +17,10 @@ public class SysUserService {
         return sysUserDao.findByUsername(username);
     }
 
-    public SysUserVo save(SysUserVo sysUserVo) {
+    public int save(SysUserVo sysUserVo) {
         sysUserVo.initCreator();
         sysUserVo.setUserId(UUID.randomUUID().toString().replaceAll("-", ""));
-        return sysUserDao.save(sysUserVo);
+        return sysUserDao.insert(sysUserVo);
     }
 
 }

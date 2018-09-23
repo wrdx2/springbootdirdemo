@@ -38,7 +38,7 @@ public class SysUserServiceTest {
     public void save() throws  Exception {
         SysUserVo sysUserVo = new SysUserVo();
         sysUserVo.setUsername("234");
-        sysUserVo = sysUserService.save(sysUserVo);
+        /*sysUserVo = sysUserService.save(sysUserVo);*/
         System.out.println(sysUserVo.toString());
     }
 }

@@ -1,7 +1,9 @@
 package com.wrdao.springboot.common.vo;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import org.springframework.security.core.context.SecurityContextHolder;
+import com.wrdao.springboot.sys.vo.SysUserVo;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
@@ -25,9 +27,12 @@ public class BaseVo implements Serializable {
         this.createtime = new Date();
         this.updatetime = new Date();
 
-        if (SecurityContextHolder.getContext().getAuthentication() != null){
-            this.creator = SecurityContextHolder.getContext().getAuthentication().getName();
-            this.updater = SecurityContextHolder.getContext().getAuthentication().getName();
+        Subject subject = SecurityUtils.getSubject();
+        SysUserVo user = (SysUserVo) subject.getPrincipal();
+
+        if (subject.isAuthenticated() && user != null){
+            this.creator = user.getName();
+            this.updater = user.getName();
         } else {
             this.creator = "unlogin";
             this.updater = "unlogin";
@@ -40,8 +45,11 @@ public class BaseVo implements Serializable {
         //this.available = 0;
         this.updatetime = new Date();
 
-        if (SecurityContextHolder.getContext().getAuthentication() != null){
-            this.updater = SecurityContextHolder.getContext().getAuthentication().getName();
+        Subject subject = SecurityUtils.getSubject();
+        SysUserVo user = (SysUserVo) subject.getPrincipal();
+
+        if (subject.isAuthenticated() && user != null){
+            this.updater = user.getName();
         } else {
             this.updater = "unlogin";
         }
