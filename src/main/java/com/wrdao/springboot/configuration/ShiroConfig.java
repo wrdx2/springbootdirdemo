@@ -1,6 +1,5 @@
 package com.wrdao.springboot.configuration;
 
-import com.wrdao.springboot.common.filter.MyFormAuthenticationFilter;
 import com.wrdao.springboot.common.filter.CaptchaValidateFilter;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
@@ -17,7 +16,7 @@ import java.util.Map;
 public class ShiroConfig {
     @Bean
     public ShiroFilterFactoryBean shirFilter(SecurityManager securityManager) {
-        System.out.println("ShiroConfiguration.shirFilter()");
+        //System.out.println("ShiroConfiguration.shirFilter()");
         ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
         shiroFilterFactoryBean.setSecurityManager(securityManager);
         //拦截器.
@@ -28,7 +27,7 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/kaptcha.jpg", "anon");
         filterChainDefinitionMap.put("/login", "anon");
         filterChainDefinitionMap.put("/user/index", "anon");
-        //filterChainDefinitionMap.put("/ajaxLogin", "anon");
+        filterChainDefinitionMap.put("/file/**", "anon");
         //配置退出 过滤器,其中的具体的退出代码Shiro已经替我们实现了
         filterChainDefinitionMap.put("/logout", "logout");
         //<!-- 过滤链定义，从上向下顺序执行，一般将/**放在最为下边 -->:这是一个坑呢，一不小心代码就不好使了;
@@ -47,7 +46,7 @@ public class ShiroConfig {
         //自定义拦截器
         Map<String, Filter> filters = shiroFilterFactoryBean.getFilters();
         filters.put("captchaVaildate", new CaptchaValidateFilter());
-        filters.put("authc", new MyFormAuthenticationFilter());
+        //filters.put("authc", new MyFormAuthenticationFilter());
 
         return shiroFilterFactoryBean;
     }

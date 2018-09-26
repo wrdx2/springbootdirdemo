@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wrdao.springboot.file.dao.FileDao">
+    <cache type="com.wrdao.springboot.common.constant.RedisCache"/>
+    <insert id="insert" parameterType="com.wrdao.springboot.file.vo.FileVo">
+        insert into file_bas(
+                thumb,
+                file_cate_id,
+                extension,
+                file_type,
+                ip_addr,
+                thumb_file_id,
+                file_id,
+                file_name,
+                file_path,
+                content_type,
+                creator,
+                updater,
+                available,
+                display_index,
+                download_num,
+                size,
+                createtime,
+                updatetime
+            )
+        values(
+            #{thumb},
+            #{fileCateId},
+            #{extension},
+            #{fileType},
+            #{ipAddr},
+            #{thumbFileId},
+            #{fileId},
+            #{fileName},
+            #{filePath},
+            #{contentType},
+            #{creator},
+            #{updater},
+            #{available},
+            #{displayIndex},
+            #{downloadNum},
+            #{size},
+            #{createtime},
+            #{updatetime}
+        )
+    </insert>
+</mapper>
