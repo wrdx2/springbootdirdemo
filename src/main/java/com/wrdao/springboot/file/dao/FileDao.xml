@@ -45,4 +45,37 @@
             #{updatetime}
         )
     </insert>
+
+    <select id="get" parameterType="com.wrdao.springboot.file.vo.FileVo" resultType="com.wrdao.springboot.file.vo.FileVo">
+        SELECT
+            thumb AS thumb,
+            file_cate_id AS fileCateId,
+            extension AS extension,
+            file_type AS fileType,
+            ip_addr AS ipAddr,
+            thumb_file_id AS thumbFileId,
+            file_id AS fileId,
+            file_name AS fileName,
+            file_path AS filePath,
+            content_type AS contentType,
+            creator AS creator,
+            updater AS updater,
+            available AS available,
+            display_index AS displayIndex,
+            download_num AS downloadNum,
+            size AS size,
+            createtime AS createtime,
+            updatetime AS updatetime
+        FROM
+            file_bas
+        where file_id = #{fileId};
+    </select>
+
+    <update id="downloadSuccess" parameterType="java.lang.String">
+        update file_bas
+        set download_num = download_num + 1,
+            display_index = display_index + 1
+        where file_id = #{fileId}
+    </update>
+
 </mapper>

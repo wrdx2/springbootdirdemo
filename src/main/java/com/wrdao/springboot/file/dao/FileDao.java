@@ -28,4 +28,6 @@ public interface FileDao extends BaseDao<FileVo> {
 
     @Override
     FileVo get(String id);
+
+    int downloadSuccess(String fileId);
 }

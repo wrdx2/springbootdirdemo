@@ -1,5 +1,8 @@
 package com.wrdao.springboot.util;
 
+import com.wrdao.springboot.util.mybatis.pagination.PageDto;
+import com.wrdao.springboot.util.mybatis.paginator.domain.PageList;
+
 import java.io.Serializable;
 
 public class ControllerResult implements Serializable {
@@ -29,6 +32,10 @@ public class ControllerResult implements Serializable {
         result.setMsg(msg);
         result.setData(object);
         return result;
+    }
+
+    public static ControllerResult PageListOf(String msg, PageList listByPageQo) {
+        return ControllerResult.success(msg,PageDto.ValueOf(listByPageQo));
     }
 
     public static ControllerResult error(Object object) {

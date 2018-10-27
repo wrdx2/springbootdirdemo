@@ -83,6 +83,13 @@
             <version>2.5.1</version>
         </dependency>
 
+        <!--二维码-->
+        <dependency>
+            <groupId>QRCode</groupId>
+            <artifactId>Qrcode</artifactId>
+            <version>3.0</version>
+        </dependency>
+
         <!--redis缓存-->
         <dependency>
             <groupId>org.springframework.data</groupId>

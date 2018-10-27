@@ -28,6 +28,8 @@ spring:
   servlet:
     multipart:
       location: E:\files\
+      max-file-size: -1
+      max-request-size: -1
 #mybatis
 #实体类包
 mybatis:
@@ -50,6 +52,7 @@ logging:
     com.wrdao.springboot.common : debug
     com.wrdao.springboot.configuration : debug
     com.wrdao.springboot.sys.dao : debug
+    com.wrdao.springboot.file : debug
   pattern:
     #console: "%d %logger %msg%n"
     file: "%d{yyyy/MM/dd-HH:mm} [%thread] %-5level %logger- %msg%n"
