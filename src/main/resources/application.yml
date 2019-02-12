@@ -46,7 +46,7 @@ mybatis:
     local-cache-scope: session
 #日志
 logging:
-  path: E:\idea\springbootdirdemo\log
+  path: \log
   level:
     root : info
     com.wrdao.springboot.common : debug

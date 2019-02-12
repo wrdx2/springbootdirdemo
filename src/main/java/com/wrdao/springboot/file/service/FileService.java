@@ -124,4 +124,23 @@ public class FileService {
         }
         return null;
     }
+
+    public int deleteFile(String fileId) {
+
+        FileVo vo = fileDao.get(fileId);
+        if (vo == null) {
+            return Integer.valueOf(0);
+        }
+        File f = new File(partLocation, fileId);
+        if (f.exists()) {
+            f.delete();
+        }
+        if ("Y".equals(vo.getThumb())) {
+            File thumb = new File(partLocation, vo.getThumbFileId());
+            if (thumb.exists()) {
+                thumb.delete();
+            }
+        }
+        return fileDao.delete(vo);
+    }
 }

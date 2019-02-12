@@ -3,6 +3,7 @@ package com.wrdao.springboot.file.controller;
 import com.wrdao.springboot.file.service.FileService;
 import com.wrdao.springboot.util.ControllerResult;
 import com.wrdao.springboot.util.IpUtil;
+import net.minidev.json.JSONObject;
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -49,6 +50,25 @@ public class FileController {
 
             //当前是从该工程的WEB-INF//File//下获取文件(该目录可以在下面一行代码配置)然后下载到C:\\users\\downloads即本机的默认下载的目录
             //String realPath = request.getServletContext().getRealPath("//WEB-INF//");
+        }
+        return ControllerResult.error("文件ID不能为空", null);
+    }
+
+    //文件下载相关代码
+    @ResponseBody
+    @RequestMapping("/file/delete")
+    public ControllerResult deleteFile(String fileId, HttpServletResponse response) throws IOException {
+
+        if (fileId != null) {
+
+            Integer i = fileService.deleteFile(fileId);
+            JSONObject jsonO = new JSONObject();
+            jsonO.put(fileId, i.intValue() > 0);
+            response.setContentType("application/json");
+            response.getWriter().write(jsonO.toString());
+            response.getWriter().flush();
+            response.getWriter().close();
+
         }
         return ControllerResult.error("文件ID不能为空", null);
     }
